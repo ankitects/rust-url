@@ -1,8 +1,8 @@
 [package]
-name = "percent-encoding"
+name = "percent-encoding-iri"
 version = "2.2.0"
 authors = ["The rust-url developers"]
-description = "Percent encoding and decoding"
+description = "Percent encoding and decoding, preserving non-Latin characters."
 categories = ["no_std"]
 repository = "https://github.com/servo/rust-url/"
 license = "MIT OR Apache-2.0"
