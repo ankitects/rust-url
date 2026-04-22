@@ -1,0 +1,40 @@
+# Publish https://crates.io/crates/percent-encoding-iri
+#
+# Prerequisites:
+#   - GitHub secret CARGO_REGISTRY_TOKEN (https://crates.io/settings/tokens) with publish scope.
+#   - The crates.io crate name must be owned by the account that owns the token (first publish registers it).
+#
+# Usage: Actions → "Publish percent-encoding-iri" → Run workflow.
+#   Leave dry_run enabled to only validate packaging; disable for a real publish.
+
+name: Publish percent-encoding-iri
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "If true, only cargo publish --dry-run"
+        type: boolean
+        default: true
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Package validation (dry-run)
+        run: cargo publish -p percent-encoding-iri --dry-run
+
+      - name: Publish to crates.io
+        if: ${{ !inputs.dry_run }}
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish -p percent-encoding-iri
