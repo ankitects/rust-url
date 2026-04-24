@@ -1,18 +1,29 @@
 [package]
-name = "percent-encoding"
+name = "percent-encoding-iri"
 version = "2.3.2"
-authors = ["The rust-url developers"]
-description = "Percent encoding and decoding"
-categories = ["no-std"]
-repository = "https://github.com/servo/rust-url/"
+authors = ["The rust-url developers", "Ankitects contributors"]
+description = "Percent encoding with optional IRI-style UTF-8 (enable the `iri` feature). API-compatible with the `percent-encoding` crate name in Rust via `percent_encoding`."
+documentation = "https://docs.rs/percent-encoding-iri"
+repository = "https://github.com/ankitects/rust-url"
+readme = "README.md"
 license = "MIT OR Apache-2.0"
 edition = "2018"
 rust-version = "1.51"
+keywords = ["percent-encoding", "iri", "url", "encoding", "no-std"]
+categories = ["encoding", "no-std", "web-programming"]
+publish = true
+include = ["Cargo.toml", "README.md", "LICENSE-*", "src/**/*"]
+
+[lib]
+name = "percent_encoding"
 
 [features]
 default = ["std"]
 std = ["alloc"]
 alloc = []
+# Encode only ASCII code units in `AsciiSet`; leave UTF-8 non-ASCII bytes literal (IRI-style).
+iri = []
 
 [package.metadata.docs.rs]
+all-features = true
 rustdoc-args = ["--generate-link-to-definition"]
